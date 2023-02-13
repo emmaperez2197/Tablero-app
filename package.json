@@ -1,0 +1,26 @@
+{
+  "name": "tablero-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmaperez2197/Tablero-app.git"
+  },
+  "author": "Emmanuel Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmaperez2197/Tablero-app/issues"
+  },
+  "homepage": "https://github.com/emmaperez2197/Tablero-app#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
