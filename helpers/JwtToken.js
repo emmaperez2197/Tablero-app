@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-
-
 class Token {
 
     static sing(data){
