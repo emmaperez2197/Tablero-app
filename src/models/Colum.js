@@ -1,24 +1,23 @@
 const FatherModel = require('./../../modules/class/fatherModel');
 
 
-class Tablero extends FatherModel {
+
+class Colum extends FatherModel{
 
     constructor({nombre}){
         super();
         this.nombre = nombre;
-        this.idUser = [];
-        this.idColum = [];
+        this.idTicket = [];
 
     }
 
     static get collection(){
-        return 'tableros'
+        return 'colums'
     }
 
     get collection(){
-        return 'tableros'
+        return 'colums'
     }
 }
 
-
-module.exports = Tablero;
+module.exports = Ticket;
