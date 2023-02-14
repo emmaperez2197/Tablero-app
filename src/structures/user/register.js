@@ -7,7 +7,8 @@ module.exports = body => {
 	const schema = Joi.object({
 		nombre: Joi.string().required(),
         apellido: Joi.string().required(),
-        email: Joi.string().email().required()
+        email: Joi.string().email().required(),
+        contraseña: Joi.string().min(8).max(16)
         
 	});
 

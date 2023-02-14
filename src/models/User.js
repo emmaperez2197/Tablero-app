@@ -3,11 +3,12 @@ const Model = require('../../modules/class/fatherModel');
 
 
 class User extends Model{
-    constructor({nombre, apellido, email}){
+    constructor({nombre, apellido, email, contraseña}){
         super();
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.contraseña = contraseña
 
     }
 

@@ -1,8 +1,6 @@
 const Mongodb = require('mongodb');
 
-const Mongo = require('../database/Mongo');
-
-
+const Mongo = require('../database/MongoDB');
 
 const mongo = new Mongo();
 
