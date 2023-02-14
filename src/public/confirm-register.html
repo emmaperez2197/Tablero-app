@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Verificación</title>
+    <link rel="shortcut icon" href="reciclaje.png">
+    <script>
+
+        function getParameterByName(t) {
+        var r = window.location.href;
+        t = t.replace(/[\[\]]/g, '\\$&');
+        var s = new RegExp('[?&]' + t + '(=([^&#]*)|&|#|$)')
+            , l = s.exec(r);
+        return l ? l[2] ? decodeURIComponent(l[2].replace(/\+/g, ' ')) : '' : null
+        };
+
+        function verificar() {
+
+        let token = getParameterByName('token')
+
+        var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+        };
+
+        fetch("http://localhost:7777/api/user/confirm/"+token, requestOptions)
+        .then(response => response.text())
+        .then(result => JSON.parse(result).code == 2 ? window.location.href = "https://reciclaje-api.com2.ar/confirmed.html" : window.location.href = "https://reciclaje-api.com2.ar/not-confirmed.html")
+        .catch(error => console.log('error', error));
+        }
+
+    </script>
+</head>
+
+<body>
+<div>
+    <section class= form>
+        <h4>Confirmar Registro</h4>
+        <img class="img" src="reciclaje.png">
+        <p>Para confirmar el registro en la aplicación presione el siguiente botón:</p>
+        <div class="clearfix"></div>
+        <input class="button1" type="submit" name="send" id="send" value="Verificar email" onclick='verificar()'>
+    </section>
+</div>
+
+</body>
+
+</html>

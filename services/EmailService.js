@@ -4,7 +4,7 @@ const transporter = nodemailer.createTransport({
   service: 'Gmail',
   secure: false, // true for 465, false for other ports
   auth: {
-    user: 'birrappmt@gmail.com', // generated ethereal user
+    user: 'emmaperez2197@gmail.com', // generated ethereal user
     pass: 'bdqhktfamztnchwe', // generated ethereal password
   },
   tls:{
@@ -17,7 +17,7 @@ class EmailService {
 	static async sendEmail(to, subject, html) {
 		try {
 			const emailSended = await transporter.sendMail({
-				from: 'BirrApp <no-remplay@correo.com>',
+				from: 'Tablero <no-remplay@correo.com>',
 				to,
 				subject,
 				html
