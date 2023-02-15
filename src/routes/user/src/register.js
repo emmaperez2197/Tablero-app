@@ -33,8 +33,6 @@ const handler = async (req, res) => {
 	}
 
 	const token = sing(data)
-
-	console.log(token);
 	
 	await EmailService.sendEmail(
 		email,

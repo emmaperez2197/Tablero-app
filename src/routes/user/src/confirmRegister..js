@@ -12,6 +12,12 @@ const handler = async (req, res) => {
     const verifyToken = await Token.decode(req.params.token)
     delete verifyToken.iat
 
+    const checkEmailExistens = await User.get({email:verifyToken.email})
+
+        if (checkEmailExistens.length) {
+            return res.status(200).json({message: 'El usuario ya confirmo esta cuenta'})
+        }
+
     const passwordHash = Bcrypt.hashUser(verifyToken.contraseña)
 
     const newUser = new User({...verifyToken, contraseña: passwordHash})

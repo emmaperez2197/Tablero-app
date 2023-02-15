@@ -17,7 +17,7 @@ class EmailService {
 	static async sendEmail(to, subject, html) {
 		try {
 			const emailSended = await transporter.sendMail({
-				from: 'tableroDeEmma <no-remplay@correo.com>',
+				from: 'Tablero Jiraiya <no-remplay@correo.com>',
 				to,
 				subject,
 				html
