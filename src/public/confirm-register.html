@@ -27,9 +27,9 @@
         redirect: 'follow'
         };
 
-        fetch("http://localhost:7777/api/user/confirm/"+token, requestOptions)
+        fetch("http://localhost:7777/api/user/confirmRegister/"+token, requestOptions)
         .then(response => response.text())
-        .then(result => JSON.parse(result).code == 2 ? window.location.href = "https://reciclaje-api.com2.ar/confirmed.html" : window.location.href = "https://reciclaje-api.com2.ar/not-confirmed.html")
+        .then(result => JSON.parse(result).code == 2 ? window.location.href = "http://localhost:7777/confirmed.html" : window.location.href = "http://localhost:7777/not-confirmed.html")
         .catch(error => console.log('error', error));
         }
 
@@ -40,8 +40,7 @@
 <div>
     <section class= form>
         <h4>Confirmar Registro</h4>
-        <img class="img" src="reciclaje.png">
-        <p>Para confirmar el registro en la aplicación presione el siguiente botón:</p>
+        <img class="img" src="jiraiya.jpg">
         <div class="clearfix"></div>
         <input class="button1" type="submit" name="send" id="send" value="Verificar email" onclick='verificar()'>
     </section>

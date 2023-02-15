@@ -30,7 +30,7 @@ const validateEmail = (token) => `<!DOCTYPE html>
                 <center>
                     <table cellspacing="0" cellpadding="0">
                         <tr>
-                            <td style="border-radius: 20px !important ;" bgcolor="#559e24">
+                            <td style="border-radius: 20px !important ;" bgcolor="#d41f1f">
                                 <a href="http://localhost:7777/confirm-register.html?token=${token}" target="_blank"
                                     style="padding: 10px 20px;font-size: 20px;color: #ffffff;text-decoration: none;display: inline-block;">
                                     Confirmar Registro

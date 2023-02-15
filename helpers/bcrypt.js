@@ -5,10 +5,9 @@ const bcrypt = require('bcrypt');
 class Bcrypt {
 
     constructor(){
-
     }
     static hashUser(password){
-        return  hash = bcrypt.hashSync(password, 12);
+        return  bcrypt.hashSync(password, 12);
     
     }
 

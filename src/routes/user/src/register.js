@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const User = require('../../../models/User');
 const {sing} = require('../../../../helpers/JwtToken');
-const {messageForExistantEmail, messageForEmail} = require('../../../messages/user/register');
+const {messageForExistantEmail, messageForEmail, messageForCreatedUser} = require('../../../messages/user/register');
 const validate = require('../../../structures/user/register');
 const EmailService = require('../../../../services/EmailService')
 const createdUserTemplate = require('../../../../services/templates/confirmedRegister')
@@ -25,8 +25,6 @@ const handler = async (req, res) => {
 		return res.status(200).json(messageForExistantEmail())
 	}
 
-
-	console.log('pase');
 	const data = {
 		nombre, 
 		apellido,
@@ -35,6 +33,8 @@ const handler = async (req, res) => {
 	}
 
 	const token = sing(data)
+
+	console.log(token);
 	
 	await EmailService.sendEmail(
 		email,
@@ -42,7 +42,7 @@ const handler = async (req, res) => {
 		createdUserTemplate(token)
 	)
 
-	return res.status(200).json({ message: 'Email enviado', code: 2 });
+	return res.status(200).json({ message: messageForCreatedUser(), code: 2 });
 
 };
 
