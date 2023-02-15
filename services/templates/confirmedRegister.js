@@ -14,7 +14,6 @@ const validateEmail = (token) => `<!DOCTYPE html>
         <tr>
             <td>
                 <center>
-                    <img src="https://reciclaje-api.com2.ar/img/logo.png" style="width: 300px" alt="logo-memo">
                 </center>
             </td>
         </tr>

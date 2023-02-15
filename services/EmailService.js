@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'Gmail',
+  service: 'gmail',
   secure: false, // true for 465, false for other ports
   auth: {
-    user: 'emmaperez2197@gmail.com', // generated ethereal user
-    pass: 'bdqhktfamztnchwe', // generated ethereal password
+    user: process.env.EMAIL_TO_SEND, // generated ethereal user
+    pass: process.env.PASS_OF_EMAIL_TO_SEND, // generated ethereal password
   },
   tls:{
       rejectUnauthorized: false
@@ -17,7 +17,7 @@ class EmailService {
 	static async sendEmail(to, subject, html) {
 		try {
 			const emailSended = await transporter.sendMail({
-				from: 'Tablero <no-remplay@correo.com>',
+				from: 'tableroDeEmma <no-remplay@correo.com>',
 				to,
 				subject,
 				html
