@@ -14,14 +14,3 @@ class Token {
 
 module.exports = Token
 
-// const decodeToken = (token)=>{
-    
-//     let token = jwt.verify(token, process.env.KEY_PRELOGIN);
-//     return token
-// }
-
-// const jwtToken = (data)=>{
-
-//    let token = jwt.sign(data, process.env.KEY_PRELOGIN, { algorithm: 'RS256' });
-//     return token
-// }

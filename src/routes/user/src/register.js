@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const User = require('../../../models/User');
-const {sing} = require('../../../../helpers/JwtToken');
+const Token = require('../../../../helpers/JwtToken');
 const {messageForExistantEmail, messageForEmail, messageForCreatedUser} = require('../../../messages/user/register');
 const validate = require('../../../structures/user/register');
 const EmailService = require('../../../../services/EmailService')
@@ -19,28 +19,33 @@ const handler = async (req, res) => {
 		return res.status(400).json(validateUser)
 	}
 
-	checkEmailExists = await User.get({email:email})
-
-	if (checkEmailExists.length) {
-		return res.status(200).json(messageForExistantEmail())
+	try {
+			checkEmailExists = await User.get({email:email})
+		
+			if (checkEmailExists.length) {
+				return res.status(200).json(messageForExistantEmail())
+			}
+		
+			const data = {
+				nombre, 
+				apellido,
+				email,
+				contraseña
+			}
+		
+			const token = Token.sing(data)	
+		
+			await EmailService.sendEmail(
+				email,
+				messageForEmail(),
+				createdUserTemplate(token)
+			)
+		
+			return res.status(200).json({ message: messageForCreatedUser(), code: 2 });
+	} catch (error) {
+		return res.status(500).json({ error: error.message, code: -1});
+		
 	}
-
-	const data = {
-		nombre, 
-		apellido,
-		email,
-		contraseña
-	}
-
-	const token = sing(data)
-	
-	await EmailService.sendEmail(
-		email,
-		messageForEmail(),
-		createdUserTemplate(token)
-	)
-
-	return res.status(200).json({ message: messageForCreatedUser(), code: 2 });
 
 };
 
