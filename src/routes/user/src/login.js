@@ -15,6 +15,8 @@ const handler = async (req, res) => {
 
     const checkUserExists = await UserModel.get({email:email})
 
+    console.log(checkUserExists);
+
 
     if (!checkUserExists.length) {
         return res.status(200).json({message:messageForNonExistantEmail(), code: 2})
@@ -31,6 +33,7 @@ const handler = async (req, res) => {
     }
 
     const token = Token.sing(data);
+    console.log(checkUserExists);
     
     res.status(200).json({message: mensajes.successfulLogin(data.nombre), code: 2, token})
     
