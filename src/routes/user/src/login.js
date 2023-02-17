@@ -13,30 +13,32 @@ const handler = async (req, res) => {
 
     const {email, contraseña} = req.body;
 
-    const checkUserExists = await UserModel.get({email:email})
+    try {
 
-    console.log(checkUserExists);
-
-
-    if (!checkUserExists.length) {
-        return res.status(200).json({message:messageForNonExistantEmail(), code: 2})
-    }
-
-    if (!await Bycript.anHash(contraseña, checkUserExists[0].contraseña ) ) {
-        return res.status(400).json( {message:mensajes.passwordInvalid})
-    }
- 
-    delete checkUserExists[0].contraseña
-
-    const data = {
-        ...checkUserExists[0]
-    }
-
-    const token = Token.sing(data);
-    console.log(checkUserExists);
+        const checkUserExists = await UserModel.get({email:email})
     
-    res.status(200).json({message: mensajes.successfulLogin(data.nombre), code: 2, token})
+        if (!checkUserExists.length) {
+            return res.status(200).json({message:messageForNonExistantEmail(), code: 2})
+        }
     
+        if ( !await Bycript.anHash(contraseña, checkUserExists[0].contraseña ) ) {
+            return res.status(400).json( {message:mensajes.passwordInvalid})
+        }
+     
+        delete checkUserExists[0].contraseña
+    
+        const data = {...checkUserExists[0]}
+    
+        const token = await Token.sing(data);
+        
+        res.status(200).json({message: mensajes.successfulLogin(data.nombre), code: 2, token})
+        
+        
+    } catch (error) {
+        res.status(500).json({error: error.toString()})
+    }
+
+  
 }
 
 app.use('/', handler )
