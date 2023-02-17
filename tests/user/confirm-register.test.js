@@ -99,7 +99,7 @@ describe('Create register api test', ()=>{
 
     context('When database errors occur', () => {
 
-        it.only('Should return 500 if an error occurs while registering a user in the database', async () => {
+        it('Should return 500 if an error occurs while registering a user in the database', async () => {
 
 
             sandbox.stub(Token, 'decode').resolves(data);
