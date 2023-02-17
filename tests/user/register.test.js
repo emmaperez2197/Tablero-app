@@ -118,10 +118,10 @@ describe('Create register api test', ()=>{
                 sandbox.stub(EmailService, 'sendEmail');
 
 
-				const req = mockRequest( {...data,[ field]: 5} );
-				const res = mockResponse();
+				        const req = mockRequest( {...data,[ field]: 5} );
+				        const res = mockResponse();
 
-				await handler(req, res);
+			        	await handler(req, res);
                 
                 assert.deepStrictEqual(res.status, 400)
                 assert.deepStrictEqual(res.json, { error: `"${field}" must be a string` })
@@ -145,17 +145,17 @@ describe('Create register api test', ()=>{
             sandbox.stub(Jwt, 'sing');
             sandbox.stub(EmailService, 'sendEmail');
 
-			const req = mockRequest(data);
-			const res = mockResponse();
-
-			await handler(req, res);
-
-			assert.deepStrictEqual(res.status, 500);
-			assert.deepStrictEqual(res.json, { code: -1, error: "Error in get"});
-
-			sandbox.assert.calledOnceWithExactly(UserModel.get,{ email:  'eperez@moodtechnology.com.ar' });
-			sandbox.assert.notCalled(Jwt.sing);
-			sandbox.assert.notCalled(EmailService.sendEmail);
+		        const req = mockRequest(data);
+			      const res = mockResponse();
+              
+			      await handler(req, res);
+              
+			      assert.deepStrictEqual(res.status, 500);
+			      assert.deepStrictEqual(res.json, { code: -1, error: "Error in get"});
+              
+			      sandbox.assert.calledOnceWithExactly(UserModel.get,{ email:  'eperez@moodtechnology.com.ar' });
+			      sandbox.assert.notCalled(Jwt.sing);
+			      sandbox.assert.notCalled(EmailService.sendEmail);
 		});
 
     })
