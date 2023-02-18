@@ -1,5 +1,5 @@
 /* eslint-disable */
-const forgotPass = (token) => `<!DOCTYPE html>
+const recoverPass = (token) => `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -45,4 +45,4 @@ const forgotPass = (token) => `<!DOCTYPE html>
 </body>
 </html>`;
 
-module.exports = forgotPass;
+module.exports = recoverPass;
