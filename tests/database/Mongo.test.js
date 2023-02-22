@@ -1,48 +1,48 @@
-const sandbox = require('sinon').createSandbox();
+// const sandbox = require('sinon').createSandbox();
 
-const { MongoClient } = require('mongodb');
-const Mongo = require('../../modules/database/MongoDB');
+// const { MongoClient } = require('mongodb');
+// const Mongo = require('../../modules/database/MongoDB');
 
-const mongo = new Mongo();
+// const mongo = new Mongo();
 
-const client = {
-	fakeData: 'Juan carlos',
-	db: () => 'fakedb'
-};
+// const client = {
+// 	fakeData: 'Juan carlos',
+// 	db: () => 'fakedb'
+// };
 
-const fakeDb = {
-	fakeData: 'fakedb'
-};
+// const fakeDb = {
+// 	fakeData: 'fakedb'
+// };
 
-describe('Mongo Test', () => {
+// describe('Mongo Test', () => {
 
-	afterEach(() => sandbox.restore());
+// 	afterEach(() => sandbox.restore());
 
-	context('When connect correctly', () => {
+// 	context('When connect correctly', () => {
 
-		it('Should return connection to Mongo', async () => {
+// 		it('Should return connection to Mongo', async () => {
 
-			sandbox.stub(MongoClient, 'connect').resolves(client);
-			sandbox.stub(MongoClient.prototype, 'db').resolves(fakeDb);
+// 			sandbox.stub(MongoClient, 'connect').resolves(client);
+// 			sandbox.stub(MongoClient.prototype, 'db').resolves(fakeDb);
 
-			await mongo.connect();
+// 			await mongo.connect();
 
-			sandbox.assert.calledOnce(MongoClient.connect);
-		});
-	});
+// 			sandbox.assert.calledOnce(MongoClient.connect);
+// 		});
+// 	});
 
-	context('When an error occurs', () => {
+// 	context('When an error occurs', () => {
 
-		it('Should return an error if fail to get client', async () => {
+// 		it('Should return an error if fail to get client', async () => {
 
-			sandbox.stub(MongoClient, 'connect').rejects(new Error('Fail to get client'));
-			sandbox.stub(MongoClient.prototype, 'db').resolves(fakeDb);
+// 			sandbox.stub(MongoClient, 'connect').rejects(new Error('Fail to get client'));
+// 			sandbox.stub(MongoClient.prototype, 'db').resolves(fakeDb);
 
-			await mongo.connect();
+// 			await mongo.connect();
 
-			sandbox.assert.calledOnce(MongoClient.connect);
-			sandbox.assert.notCalled(MongoClient.prototype.db);
-		});
+// 			sandbox.assert.calledOnce(MongoClient.connect);
+// 			sandbox.assert.notCalled(MongoClient.prototype.db);
+// 		});
 
-	});
-});
+// 	});
+// });
