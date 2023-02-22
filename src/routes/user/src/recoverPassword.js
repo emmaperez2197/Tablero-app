@@ -26,9 +26,12 @@ const handler = async (req, res)=>{
 
         const token = Token.sing(req.body.email);
 
-        await EmailService.sendEmail(req.body.email, message.recoverPass,  recoverPass(token));
+        const emailSending = await EmailService.sendEmail(req.body.email, message.recoverPass,  recoverPass(token));
 
-        return res.status(200).json({message: message.messageSendEmail(req.body.email), code:2})
+        if(!emailSending.accepted)
+			res.status(400).json({ message: 'No se pudo enviar el email al usuario', code: 1 });
+
+        return res.status(200).json({message: message.messageSendEmail(req.body.email), code: 2})
 
 
     } catch (error) {

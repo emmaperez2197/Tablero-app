@@ -1,22 +1,19 @@
 const { MongoClient } = require('mongodb');
 
-class Mongo {
+if(process.env.TEST_ENVIROMENT === 'false') {
 
-	constructor() {
-		this.url = process.env.URL_DB;
-		this.dbName = process.env.NAME_DATABASE;
-	}
+	const uri = process.env.URL_DB;
 
-	async connect() {
-		try {
-			const client = await MongoClient.connect(this.url);
-			const db = await client.db(this.dbName);
+	// ? Inicialización de cliente Mongo DB
+	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+	client.connect(err => {
+		if(err)
+			throw err;
+		else
+			console.log('Mongo DB conectado');
+	});
 
-			return db;
-		} catch(error) {
-			return error.toString();
-		}
-	}
+	// ? al realizar el llamado a este modulo, se realiza la conexion de mongo y devolver la conexion con la base de datos
+	module.exports = client.db(process.env.NAME_DATABASE);
+
 }
-
-module.exports = Mongo;

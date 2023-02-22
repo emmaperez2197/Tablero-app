@@ -1,8 +1,7 @@
 const Mongodb = require('mongodb');
 
-const Mongo = require('../database/MongoDB');
+const db = require('../database/MongoDB');
 
-const mongo = new Mongo();
 
 module.exports = class Model {
 
@@ -24,8 +23,6 @@ module.exports = class Model {
 
 	async create() {
 
-		const db = await mongo.connect();
-
 		try {
 			return db.collection(this.collection).insertOne(this);
 		} catch(error) {
@@ -33,20 +30,22 @@ module.exports = class Model {
 		}
 	}
 
-	static async update(id, obj) {
+	static async findOneAndModify(id, data) {
 
-		const db = await mongo.connect();
 		try {
-			return db.collection(this.collection).findOneAndUpdate({ _id: ObjectId(id) }, { $set: obj });
+			const idFormatted = new Mongodb.ObjectId(id)
+			const getData = await db.collection(this.collection).findOneAndUpdate({ _id: idFormatted }, { $set: data });
+
+			return getData;
+
 		} catch(error) {
 			return error.message;
 		}
 	}
 
 	static async findById(id) {
-		const db = await mongo.connect();
 		try {
-			return db.collection(this.collection).findOne({ _id: ObjectId(id) });
+			return db.collection(this.collection).findOne({ _id: Mongodb.ObjectId(id) });
 		} catch(error) {
 			return error.message;
 		}
@@ -54,7 +53,6 @@ module.exports = class Model {
 
 	static async get(filters = {}, orderBy = {}) {
 		try {
-			const db = await mongo.connect();
 
 			return	db.collection(this.collection).find(filters).sort(orderBy).toArray();
 		} catch(error) {
@@ -64,8 +62,6 @@ module.exports = class Model {
 
 	static async getOne(params = {}) {
 		try {
-			const db = await mongo.connect();
-
 			return db.collection(this.collection).findOne(params);
 		} catch(error) {
 			return error.message;

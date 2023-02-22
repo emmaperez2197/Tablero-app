@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Restablecer Contraseña</title>
-    <link rel="shortcut icon" href="">
+    <link rel="shortcut icon" href="jiraiya.jpg">
     <script>
         function check() {
             if(document.getElementById('password').value.length < 5){
@@ -52,13 +52,13 @@
         });
 
         var requestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
         };
 
-        fetch("http://localhost:7777/api/user/confirmRegister/", requestOptions)
+        fetch("http://localhost:7777/api/user/confirmPassword/"+token, requestOptions)
         .then(response => response.text())
         .then(result => JSON.parse(result).code == 2 ? window.location.href = "http://localhost:7777/change-confirmed.html" : window.location.href = "http://localhost:7777/change-not-confirmed.html")
         .catch(error => console.log('error', error));
@@ -70,7 +70,7 @@
 <div>
     <form class= "form" id="form" action="javascript:postData()">
         <h4>Restablecer Contraseña</h4>
-        <img class="img" src="reciclaje.png">
+        <img class="img" src="jiraiya.jpg">
         <input id="password" class="controls" type="password" name="pass" id="pass" placeholder="Ingrese nueva contraseña" onkeyup="check()">
         <span id="minimo" style="color:red; font-family: Ageo2; font-size: 12px; margin-bottom: 3px" ></span>
         <input id="confirm_password" class="controls" type="password" name="pass" id="pass" placeholder="Repita su nueva contraseña" onkeyup="check()"/>
