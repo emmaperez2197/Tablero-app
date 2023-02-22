@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 class Token {
 
     static sing(data){
-       return jwt.sign(JSON.stringify(data), process.env.KEY_PRELOGIN);
+       return jwt.sign(data, process.env.KEY_PRELOGIN);
     }
 
     static  decode(token){
