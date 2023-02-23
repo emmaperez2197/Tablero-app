@@ -133,7 +133,7 @@ describe('Create confirm password api test', ()=>{
 
     context('When database errors occur', () => {
 
-          it.only('Should return 500 if an error occurs while querying the database', async () => {
+          it('Should return 500 if an error occurs while querying the database', async () => {
 
             sandbox.stub(Token, 'decode').resolves(decodeData)
             sandbox.stub(UserModel, 'getOne').rejects(new Error('error in getOne'));
