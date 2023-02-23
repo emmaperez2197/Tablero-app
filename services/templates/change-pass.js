@@ -13,9 +13,6 @@ const exchangeNews = () => `<!DOCTYPE html>
     <table style="font-size: 20px; width: 500px;font-family: Quicksand, Helvetica, Arial, sans-serif;">
         <tr>
             <td>
-                <center>
-                    <img src="https://localhost:777/img/logo.png" style="width: 300px" alt="logo-memo">
-                </center>
             </td>
         </tr>
         <tr>

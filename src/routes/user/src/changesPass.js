@@ -7,6 +7,7 @@ const validate = require('../../../structures/user/changesPass');
 const EmailService = require('../../../../services/EmailService');
 const {mensajes} = require('../../../messages/user/login')
 const Bcrypt = require('../../../../helpers/bcrypt');
+const exchangeNews = require('../../../../services/templates/change-pass')
 
 
 const app = Router();
@@ -33,6 +34,13 @@ const handler = async (req, res) => {
     const hashNewPassword = await Bcrypt.hashUser(newPassword);
 
     await User.findOneAndModify(_id, {contraseña: hashNewPassword});
+
+    await EmailService.sendEmail(
+        getUser.email,
+        mensajes.changesPassEmail,
+        exchangeNews()
+
+    )
 
     return res.status(200).json({message:mensajes.changesPass, code: 2});
 
