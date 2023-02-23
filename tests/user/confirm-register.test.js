@@ -8,12 +8,39 @@ const {handler} = require('../../src/routes/user/src/confirmRegister.');
 const UserModel = require('../../src/models/User')
 const {messageForConfirmedRegistration} = require('../../src/messages/user/register');
 
-describe('Create confirm register api test', ()=>{
+describe('Create register api test', ()=>{
 
     afterEach(() => sandbox.restore());
     beforeEach(() => { process.env.KEY_PRELOGIN = true});
 
 
+    const data = {
+        nombre: "emmanuel",
+        apellido: "perez",
+        email: "eperez@moodtechnology.com",
+        contraseña: "12345678"
+    }
+
+    const getData = [
+        {
+          _id:"63ee9fd0321dd7a38a25dd2b",
+          nombre: 'emmanuel',
+          apellido: 'perez',
+          email: 'eperez@moodtechnology.com',
+          'contraseña': '$2b$12$eTX6zsggrVbri.KLNXX1FOd8ltmMPj6A2UhbTjJJWZn2OJjLBB/J2'
+        }
+      ]
+      
+
+    const hash = '$2b$12$eTX6zsggrVbri.KLNXX1FOd8ltmMPj6A2UhbTjJJWZn2OJjLBB/J2'
+
+    const userCreated = {
+        acknowledged: true,
+        insertedId: "63ee9fd0321dd7a38a25dd2b"
+      }
+
+    const token =' eyJhbGciOiJIUzI1NiJ9.eyJub21icmUiOiJlbW1hbnVlbCIsImFwZWxsaWRvIjoicGVyZXoiLCJlbWFpbCI6ImVwZXJlekBtb29kdGVjaG5vbG9neS5jb20iLCJjb250cmFzZcOxYSI6IjEyMzQ1Njc4In0.hyK57S2NGqdfnJs4XPNtijAo4q_FV7Ta6hKr6_uiExc'
+      
 
     context('When errors do not ocurrs', () => {
         it('Should return 200 if create a user successfully', async () => {
