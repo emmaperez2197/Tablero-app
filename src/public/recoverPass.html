@@ -40,15 +40,14 @@
 
         function postData() {
 
-        let newPassword = document.getElementById("password").value
+        let nuevaContraseña = document.getElementById("password").value
         let token = getParameterByName('token')
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        newPassword,
-        token
+            nuevaContraseña
         });
 
         var requestOptions = {
@@ -60,7 +59,7 @@
 
         fetch("http://localhost:7777/api/user/confirmPassword/"+token, requestOptions)
         .then(response => response.text())
-        .then(result => JSON.parse(result).code == 2 ? window.location.href = "http://localhost:7777/change-confirmed.html" : window.location.href = "http://localhost:7777/change-not-confirmed.html")
+        .then(result =>JSON.parse(result).code == 2 ? window.location.href = "http://localhost:7777/change-confirmed.html" : window.location.href = "http://localhost:7777/change-not-confirmed.html")
         .catch(error => console.log('error', error));
 }
     </script>

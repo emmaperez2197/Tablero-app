@@ -2,14 +2,14 @@ const sandbox = require('sinon').createSandbox();
 const assert = require('assert');
 
 const Token = require('../../helpers/JwtToken');
+
 const { mockRequest, mockResponse } = require('../../tests/mocks/index');
 const {handler} = require('../../src/routes/user/src/recoverPassword');
 const UserModel = require('../../src/models/User')
 const message = require('../../src/messages/user/recoverPass');
 const EmailService = require('../../services/EmailService');
-const recoverPass = require('../../services/templates/recover-password')
 
-describe('Create recover password api test', ()=>{
+describe('Create confirm password api test', ()=>{
 
     afterEach(() => sandbox.restore());
     beforeEach(() => { process.env.KEY_PRELOGIN = true});

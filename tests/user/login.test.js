@@ -12,7 +12,7 @@ const {messageForNonExistantEmail} = require('../../src/messages/user/register')
 
 
 
-describe('Create register api test', ()=>{
+describe('Create login api test', ()=>{
 
     afterEach(() => sandbox.restore());
     beforeEach(() => { process.env.KEY_PRELOGIN = true});
