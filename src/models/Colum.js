@@ -7,7 +7,7 @@ class Colum extends FatherModel{
     constructor({nombre}){
         super();
         this.nombre = nombre;
-        this.idTicket = [];
+        this.idTickets = [];
 
     }
 
@@ -20,4 +20,4 @@ class Colum extends FatherModel{
     }
 }
 
-module.exports = Ticket;
+module.exports = Colum;
