@@ -113,7 +113,6 @@ describe('Create confirm password api test', ()=>{
 
 
             const req = mockRequest(body, token);
-            console.log(req);
             const res = mockResponse();
 
             await handler(req, res);

@@ -17,6 +17,6 @@ const mockResponse = () => {
 	return res;
 };
 
-const mockRequest = (body = {}, params = {}, query = {}) => ({ body, params, query });
+const mockRequest = (body = {}, params = {}, query = {}, jwt = {}) => ({ body, params, query, jwt });
 
 module.exports = { mockResponse, mockRequest };

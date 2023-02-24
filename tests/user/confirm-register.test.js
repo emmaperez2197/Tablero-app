@@ -111,10 +111,10 @@ describe('Create register api test', ()=>{
             const res = mockResponse();
 
               
-			await handler(req, res);
-        
-			assert.deepStrictEqual(res.status, 500);
-			assert.deepStrictEqual(res.json, { code: -1, error: "Error in get"});
+			      await handler(req, res);
+              
+			      assert.deepStrictEqual(res.status, 500);
+			      assert.deepStrictEqual(res.json, { code: -1, error: "Error in get"});
 
             sandbox.assert.calledOnceWithExactly(Token.decode, undefined);
             sandbox.assert.calledOnceWithExactly(UserModel.get,  { email: 'eperez@moodtechnology.com' } )
