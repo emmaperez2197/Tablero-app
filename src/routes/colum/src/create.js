@@ -16,6 +16,7 @@ const handler = async(req, res) => {
     }
 
     try {
+        const columData = {...req.body, }
 
         const createColum = new ColumModel(req.body);
 
