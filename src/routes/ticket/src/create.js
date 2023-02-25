@@ -30,6 +30,6 @@ const handler = async(req, res) => {
 
 };
 
-app.use('/',validateToken, handler);
+app.post('/',validateToken, handler);
 
 module.exports = {app, handler}
