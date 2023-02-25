@@ -21,6 +21,15 @@ module.exports = class Model {
 		};
 	}
 
+	static parseId(id){
+		
+		return  id ? new Mongodb.ObjectId(id) : undefined
+	}
+
+	static parseManyId(ids){
+		return ids.map(id=>this.parseId(id))
+	}
+
 	async create() {
 
 		try {
@@ -45,16 +54,31 @@ module.exports = class Model {
 
 	static async findById(id) {
 		try {
-			return db.collection(this.collection).findOne({ _id: Mongodb.ObjectId(id) });
+			const idFormatted = new Mongodb.ObjectId(id)
+			return db.collection(this.collection).findOne({ _id: idFormatted });
 		} catch(error) {
 			return error.message;
 		}
 	}
 
-	static async get(filters = {}, orderBy = {}) {
+	static db(){
+		return db.collection(this.collection)
+	}
+
+
+
+	static async get(aggregate, filters = {}, orderBy = {}) {
 		try {
 
-			return	db.collection(this.collection).find(filters).sort(orderBy).toArray();
+			if (aggregate) {
+				const result = await db.collection(this.collection).aggregate(aggregate).toArray()
+		
+				console.log(result);
+				return result;
+			}
+
+		return	db.collection(this.collection).find(filters).sort(orderBy).toArray();
+		
 		} catch(error) {
 			return error.message;
 		}
