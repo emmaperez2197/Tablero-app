@@ -15,19 +15,19 @@ const handler = async (req, res) => {
 
     try {
 
-        const checkUserExists = await UserModel.get({email:email})
+        const checkUserExists = await UserModel.getOne({email:email})
     
-        if (!checkUserExists.length) {
+        if (!checkUserExists) {
             return res.status(200).json({message:messageForNonExistantEmail(), code: 2})
         }
     
-        if ( !await Bycript.anHash(contraseña, checkUserExists[0].contraseña ) ) {
+        if ( !await Bycript.anHash(contraseña, checkUserExists.contraseña ) ) {
             return res.status(400).json( {message:mensajes.passwordInvalid})
         }
      
-        delete checkUserExists[0].contraseña
+        delete checkUserExists.contraseña
     
-        const data = {...checkUserExists[0]}
+        const data = {...checkUserExists}
     
         const token = await Token.sing(data);
         
@@ -41,6 +41,6 @@ const handler = async (req, res) => {
   
 }
 
-app.use('/', handler )
+app.post('/', handler )
 
 module.exports = { app, handler };

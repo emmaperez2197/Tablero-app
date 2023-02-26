@@ -18,9 +18,9 @@ const handler = async (req, res)=>{
         return res.status(400).json(validateBody)
     }
     try {
-        const checkExistsEmail = await UserModel.get({email: req.body.email})
+        const checkExistsEmail = await UserModel.getOne({email: req.body.email})
 
-        if (!checkExistsEmail.length) {
+        if (!checkExistsEmail) {
             return res.status(200).json({message: message.userNotExist, code: 2})
         }
 

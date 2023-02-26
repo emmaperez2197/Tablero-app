@@ -20,9 +20,9 @@ const handler = async (req, res) => {
 	}
 
 	try {
-			checkEmailExists = await User.get({email:email})
+			checkEmailExists = await User.getOne({email:email})
 		
-			if (checkEmailExists.length) {
+			if (checkEmailExists) {
 				return res.status(200).json(messageForExistantEmail())
 			}
 		
@@ -49,6 +49,6 @@ const handler = async (req, res) => {
 
 };
 
-app.use('/', handler);
+app.post('/', handler);
 
 module.exports = { app, handler };

@@ -12,12 +12,12 @@ const handler = async (req, res) => {
 
     try {
         const verifyToken = await Token.decode(req.params.token)
-    delete verifyToken.iat
+        delete verifyToken.iat
 
 
-    const checkEmailExistens = await User.get({email:verifyToken.email})
+    const checkEmailExistens = await User.getOne({ email: verifyToken.email })
 
-        if (checkEmailExistens.length) {
+        if (checkEmailExistens) {
             return res.status(200).json({message: 'El usuario ya confirmo esta cuenta'})
         }
 
@@ -37,6 +37,6 @@ const handler = async (req, res) => {
     
 };
 
-app.use('/:token', handler);
+app.post('/:token', handler);
 
 module.exports = { app, handler };
