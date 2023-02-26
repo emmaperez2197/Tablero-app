@@ -5,15 +5,16 @@ const UserModel = require('../../../models/User');
 const ColumModel = require('../../../models/Colum');
 
 const messages = require('../../../messages/ticket/create')
-const { validateTicket } = require('../../../middlewares/validateTicket');
+const { validateTicket } = require('../../../middlewares/validateData');
 const { validateToken } = require('../../../middlewares/auth-user');
+const Colum = require('../../../models/Colum');
 
 const app = Router();
 
 const handler = async (req, res) => {
 
     try {
-        const {_id} = req.jwt
+        const {_id} = req.wt
 
         const  [user, colum ] = await Promise.all([UserModel.findById(_id), ColumModel.findById(req.body.idColum)]) 
 
@@ -25,11 +26,15 @@ const handler = async (req, res) => {
             return res.status(404).json({message: messages.informerNoexist, code:1 }) 
         }
 
-        const createTicket = new TicketModel(req.body)
+        const createTicket = new TicketModel(req.body);
 
-        await createTicket.create()
+        const ticketCreated = await createTicket.create();
 
-        return res.status(200).json({messages: messages.ticketCreated, code: 2})
+        colum.idTickets.push(ColumModel.parseId(ticketCreated.insertedId));
+
+        await ColumModel.findOneAndModify(colum._id, colum);
+
+        return res.status(200).json({messages: messages.ticketCreated, code: 2});
 
     } catch (error) {
         return res.status(500).json({error: error.toString()});
