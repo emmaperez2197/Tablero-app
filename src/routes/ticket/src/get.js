@@ -1,7 +1,6 @@
 const { Router } = require('express');
 
 const TicketModel = require('../../../models/Ticket')
-const {validateToken} = require('../../../middlewares/auth-user');
 
 const messages = require('../../../messages/ticket/create')
 const generateFilters = require('../../../middlewares/generate-filters');
@@ -28,6 +27,6 @@ const handler = async(req, res) => {
 
 };
 
-app.get('/',validateToken, generateFilters, handler);
+app.get('/', generateFilters, handler);
 
 module.exports = {app, handler}
