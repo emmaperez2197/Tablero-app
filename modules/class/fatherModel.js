@@ -72,8 +72,7 @@ module.exports = class Model {
 
 			if (aggregate) {
 				const result = await db.collection(this.collection).aggregate(aggregate).toArray()
-		
-				console.log(result);
+					
 				return result;
 			}
 
