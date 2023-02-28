@@ -14,7 +14,7 @@ const app = Router();
 const handler = async (req, res) => {
 
     try {
-        const {_id} = req.wt
+        const {_id} = req.jwt
 
         const  [user, colum ] = await Promise.all([UserModel.findById(_id), ColumModel.findById(req.body.idColum)]) 
 

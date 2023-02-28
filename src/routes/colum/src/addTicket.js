@@ -65,7 +65,6 @@ const handler = async(req, res) => {
 
     }
 
-    
 };
 
 app.use('/:id',validateToken, validateAddTicket, handler);
