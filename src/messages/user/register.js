@@ -5,5 +5,6 @@ module.exports = {
 	messageForConfirmedPasswordChange: () => 'Se ha modificado su contraseña exitosamente.',
 	messageForEmail: () => 'Verificación de email',
 	messageForExistantEmail: () => 'El email ingresado ya pertenece a una cuenta activa.',
-	messageForNonExistantEmail: () => 'El email ingresado no se encuentra registrado.'
+	messageForNonExistantEmail: () => 'El email ingresado no se encuentra registrado.',
+	userNoFount: ()=> 'El user que se le quiere asignar el ticket no existe'
 };
