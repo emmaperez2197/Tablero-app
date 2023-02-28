@@ -1,4 +1,6 @@
 const validateSchemaTicket = require('../structures/ticket/create');
+const validateSchemaEditTicket = require('../structures/ticket/editTicket');
+
 const validateSchemaColum = require('../structures/colum/create');
 const validateSchemaId = require('../structures/validate-object-id');
 
@@ -48,9 +50,30 @@ const validateAddTicket = async (req, res, next) => {
 };
 
 
+const validateEditTicket = async (req, res, next) => {
+
+    const validate = await validateSchemaId(req.params.id)
+
+    if (validate.error) {
+        return res.status(400).json(validate)
+    }
+    
+    // const validateBody = await validateSchemaEditTicket(req.body)
+    
+    // if (validateBody.error) {
+    //     return res.status(400).json(validate)
+    // }
+    
+	
+    next();
+};
+
+
+
 
 module.exports = {
 	validateTicket,
     validateCreateColum,
-    validateAddTicket
+    validateAddTicket,
+    validateEditTicket
 };
