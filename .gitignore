@@ -5,6 +5,8 @@ dist/
 
 .nyc_output/
 
+data
+
 .env
 
 .eslintrc.js

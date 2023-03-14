@@ -3,11 +3,12 @@ const { Router } = require('express');
 const TicketModel = require('../../../models/Ticket');
 const UserModel = require('../../../models/User');
 const ColumModel = require('../../../models/Colum');
+const io = require('socket.io-client');
+const socket = io('http://localhost:7777');
 
 const messages = require('../../../messages/ticket/create')
 const { validateTicket } = require('../../../middlewares/validateData');
 const { validateToken } = require('../../../middlewares/auth-user');
-const Colum = require('../../../models/Colum');
 
 const app = Router();
 
@@ -34,9 +35,13 @@ const handler = async (req, res) => {
 
         await ColumModel.findOneAndModify(colum._id, colum);
 
+        socket.emit('ticketAgregado', createTicket);
+
+
         return res.status(200).json({messages: messages.ticketCreated, code: 2});
 
     } catch (error) {
+        console.log(error);
         return res.status(500).json({error: error.toString()});
 
     }

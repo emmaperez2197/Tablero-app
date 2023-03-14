@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Tablero</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <h3>Pendientes</h3>
+            <div class="card" id="todo">
+
+              <!-- Aquí se mostrarán los tickets pendientes -->
+            </div>
+          </div>
+          <div class="col">
+            <h3>En progreso</h3>
+            <div class="card" id="in-progress">
+              <!-- Aquí se mostrarán los tickets en progreso -->
+            </div>
+          </div>
+          <div class="col">
+            <h3>Terminados</h3>
+            <div class="card" id="done">
+              <!-- Aquí se mostrarán los tickets terminados -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="ticket">holaaa</div>
+      <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+      <script src="chat.js" charset="utf-8"></script>
+</body>
+</html>

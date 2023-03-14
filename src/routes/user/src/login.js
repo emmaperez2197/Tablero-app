@@ -4,17 +4,18 @@ const UserModel = require('../../../models/User');
 const Bycript = require('../../../../helpers/bcrypt')
 const {messageForNonExistantEmail} = require('../../../messages/user/register')
 const {mensajes} = require('../../../messages/user/login')
-const Token = require('../../../../helpers/JwtToken')
+const Token = require('../../../../helpers/JwtToken');
+// const io = require('socket.io-client');
+// const socket = io('http://localhost:7777');
 
 const app = Router();
-
 
 const handler = async (req, res) => {
 
     const {email, contraseña} = req.body;
-
+    
     try {
-
+        
         const checkUserExists = await UserModel.getOne({email:email})
     
         if (!checkUserExists) {
@@ -29,10 +30,12 @@ const handler = async (req, res) => {
     
         const data = {...checkUserExists}
     
+        
         const token = await Token.sing(data);
         
+        // socket.emit('login', data)
         res.status(200).json({message: mensajes.successfulLogin(data.nombre), code: 2, token})
-        
+
         
     } catch (error) {
         res.status(500).json({error: error.toString()})
