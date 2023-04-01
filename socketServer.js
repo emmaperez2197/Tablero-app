@@ -1,45 +1,91 @@
-const socket = (io) => {
+const {decode} = require('./helpers/JwtToken')
+
+const usuarios = {}
+const socketConnection = (io) => {
 
     let connectedUsers = 0;
 
-    io.on('connection', (socket) => {
-        connectedUsers++;
-        console.log(`Total connected users: ${connectedUsers}`);
+    return io.on('connection', (socket) => {
+
+
+      connectedUsers++;
+      socket.join("chat");
+      socket.join("ticket");
+
+      console.log(`Total connected users: ${connectedUsers}`);
         
-        socket.on('login', (data) => {
-              console.log(`Usuario ${data.nombre} inicio sesion`);
-        
-        });
+      socket.on('login', (data) => {
               
+          console.log(`Usuario ${data.token} inicio sesion`);
+
+          try {
+            const verify = decode(data.token);
+
+            socket.usuario = verify;
+           
+          } catch(error) {
+            return  socket.emit('loginResponse', null) ;
+          }
+          usuarios[socket.usuario._id.toString()] = socket;
+
+          socket.on('disconnect', () => {
           
-        // Escucha el evento 'chat message'
-        socket.on('chat:message', (data) => {
-          io.sockets.emit('chat:message', data)
-          
-    
+            delete usuarios[socket.usuario._id.toString()]
         });
     
-        // escuchar el evento cuando alguien esta escrbiendo
+        socket.emit('loginResponse', socket.usuario)
+
+        socket.on('chat:message', (data) => {
+          if (socket.usuario) {
+            io.to('chat').emit('chat:message', data);
+          }
+        });
+    
+
         socket.on('chat:typing', (data) => {
           socket.broadcast.emit('chat:typing', data)
         })
-    
-        //mostrar tickets
-        socket.on('ticketAgregado', (data) => {
-          console.log(data  );
-            socket.broadcast.emit('ticketAgregado', data)
-          });
+
         
 
-    
+        });
+
+        socket.on('moveTicket', (ticket)=>{
+          io.emit('movedTicket', `me ejecute, ${ticket}`)
+        })
+
+
+        ticketMessages({nombre:'emma'})
+
         // Escuchar el evento 'disconnect'
         socket.on('disconnect', () => {
+
             connectedUsers--;
+
             io.emit('update online users', connectedUsers);
             console.log(`User disconnected: ${socket.id}.Total connected users: ${connectedUsers} `);
         });
     
     });   
-}
 
-module.exports = socket;
+
+  }
+  
+  // const messagesTochat = (messages)=>{
+  //   io.to("chat").emit("chatMessages", messages);
+  
+  // }
+  
+  const ticketMessages = (obj)=>{
+    io.to("ticket").emit("ticketChanges",obj);
+  }
+
+
+const getDataTicket =  ticket => ticket
+
+module.exports = {
+  socketConnection,
+  usuarios,
+//   messagesTochat,
+//   ticketMessages,
+};

@@ -6,13 +6,14 @@ const TicketModel = require('../../../models/Ticket')
 const messages = require('../../../messages/Colum/create');
 const messagesTicket = require('../../../messages/ticket/create')
 
+const io = require('../../../../server')
 const {validateToken} = require('../../../middlewares/auth-user');
 
 const {validateAddTicket} = require('../../../middlewares/validateData');
 
 const app = Router();
 
-const handler = async(req, res) => {
+const handler = async(req, res,io) => {
 
     try {
         
@@ -57,6 +58,8 @@ const handler = async(req, res) => {
             ColumModel.findOneAndModify(idColum, newColum),
             TicketModel.findOneAndModify(id, {idColum: ColumModel.parseId(idColum)})
         ]);
+
+        io.emit('moveTicket', 'adadasdas')
     
         return res.status(200).json({message: `Ticket asignado a la columna ${getColumUpdated.nombre}`})
     

@@ -18,11 +18,11 @@ const corsOptions = {
 	methods: ['GET', 'POST']
 };
 	
-	
-	
-	
+
 const server = http.createServer(app);
 const io = socketIO(server);
+
+
 
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-socket(io)
+socket.socketConnection(io)
 
 server.listen(process.env.PORT, () => {
 	console.log('listening to port:', process.env.PORT);

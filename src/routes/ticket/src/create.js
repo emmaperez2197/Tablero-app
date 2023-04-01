@@ -3,9 +3,8 @@ const { Router } = require('express');
 const TicketModel = require('../../../models/Ticket');
 const UserModel = require('../../../models/User');
 const ColumModel = require('../../../models/Colum');
-const io = require('socket.io-client');
-const socket = io('http://localhost:7777');
 
+const {usuarios} = require('../../../../socketServer')
 const messages = require('../../../messages/ticket/create')
 const { validateTicket } = require('../../../middlewares/validateData');
 const { validateToken } = require('../../../middlewares/auth-user');
@@ -23,6 +22,13 @@ const handler = async (req, res) => {
             return res.status(404).json({message: messages.informerNoexist, code:1 }) 
         }
 
+        // if (usuarios[user.supervisor.toString()]) {
+        //     usuarios[user.supervisor.toString()].emit('')
+        // }
+
+
+
+
         if (!colum) {
             return res.status(404).json({message: messages.informerNoexist, code:1 }) 
         }
@@ -34,8 +40,6 @@ const handler = async (req, res) => {
         colum.idTickets.push(ColumModel.parseId(ticketCreated.insertedId));
 
         await ColumModel.findOneAndModify(colum._id, colum);
-
-        socket.emit('ticketAgregado', createTicket);
 
 
         return res.status(200).json({messages: messages.ticketCreated, code: 2});

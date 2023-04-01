@@ -5,8 +5,7 @@ const Bycript = require('../../../../helpers/bcrypt')
 const {messageForNonExistantEmail} = require('../../../messages/user/register')
 const {mensajes} = require('../../../messages/user/login')
 const Token = require('../../../../helpers/JwtToken');
-// const io = require('socket.io-client');
-// const socket = io('http://localhost:7777');
+
 
 const app = Router();
 
@@ -33,7 +32,6 @@ const handler = async (req, res) => {
         
         const token = await Token.sing(data);
         
-        // socket.emit('login', data)
         res.status(200).json({message: mensajes.successfulLogin(data.nombre), code: 2, token})
 
         

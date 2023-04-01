@@ -36,19 +36,16 @@
     });
 
 
-    socket.on('update online users', (connectedUsers) => {
-      // Actualizar el contador de usuarios en línea en tu interfaz de usuario
-      const onlineUsersElement = document.getElementById('online-users');
-      onlineUsersElement.textContent = `Usuarios en línea: ${connectedUsers}`;
-    });
+    // let authToken;
 
+    // socket.on('login', (token) => {
+    // authToken = token;
+    // });
 
-
-  
-
-    // socket.on('ticketAgregado', (data)=>{
-    //     console.log(data);
-    // })
-
+    // socket.on('update online users', (connectedUsers) => {
+    //   // Actualizar el contador de usuarios en línea en tu interfaz de usuario
+    //   const onlineUsersElement = document.getElementById('online-users');
+    //   onlineUsersElement.textContent = `Usuarios en línea: ${connectedUsers}`;
+    // });
 
 
